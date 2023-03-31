@@ -1,5 +1,5 @@
 const key = "6e6947115bf44d5f83a133629232803";
-console.log(`http://api.weatherapi.com/v1/current.json?key=${key}&q=london`);
+// console.log(`http://api.weatherapi.com/v1/current.json?key=${key}&q=london`);
 
 const weatherConditions = document.querySelector(".weather__conditions");
 const locationCity = document.querySelector(".location__city");
@@ -17,20 +17,19 @@ const getCurrentWeather = async () => {
 			`http://api.weatherapi.com/v1/current.json?key=${key}&q=Chicago`
 		);
 		const weatherData = await response.json();
-		console.log(weatherData);
+
 		weatherConditions.innerHTML = weatherData.current.condition.text;
 		locationCity.innerHTML = weatherData.location.name;
 
 		const options = { weekday: "long" };
 		const date = new Date(weatherData.location.localtime);
 		const timeOfDay = date.toLocaleTimeString("en-US");
-		console.log(timeOfDay);
 		const dayOfTheWeek = new Intl.DateTimeFormat("en-US", options).format(
 			date
 		);
 		const dayOfTheMonth = new Intl.DateTimeFormat("en-US").format(date);
 
-		locationDate.innerHTML = `${timeOfDay}, ${dayOfTheWeek}, ${dayOfTheMonth}`;
+		locationDate.innerHTML = `${timeOfDay} ${dayOfTheWeek}, ${dayOfTheMonth}`;
 		locationTemperature.innerHTML = `${weatherData.current.temp_f} °F`;
 		locationIcon.src = `${weatherData.current.condition.icon}`;
 
@@ -77,6 +76,12 @@ const dayPlus7High = document.querySelector(".day__plus7High");
 const dayPlus7Low = document.querySelector(".day__plus7Low");
 const dayPlus7Icon = document.querySelector(".day__plus7Icon");
 
+const hourPlus1 = document.querySelector(".hour__plus1");
+const hourPlus1Time = document.querySelector(".hour__plus1Time");
+const hourPlus1Conditions = document.querySelector(".hour__plus1Conditions");
+const hourPlus1Temp = document.querySelector(".hour__plus1Temp");
+const hourPlus1Icon = document.querySelector(".hour__plus1Icon");
+
 const getForecast = async () => {
 	try {
 		const response = await fetch(
@@ -96,6 +101,8 @@ const getForecast = async () => {
 		// 	new Date(forecastData.forecast.forecastday[0].date)
 		// );
 		// console.log(dayOfTheWeek);
+		weatherChance.innerHTML = `${forecastData.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+
 		dayPlus1.innerHTML = `${new Intl.DateTimeFormat(
 			"en-US",
 			options
@@ -151,8 +158,32 @@ const getForecast = async () => {
 		dayPlus7High.innerHTML = `${forecastData.forecast.forecastday[7].day.maxtemp_f} °F`;
 		dayPlus7Low.innerHTML = `${forecastData.forecast.forecastday[7].day.mintemp_f} °F`;
 		dayPlus7Icon.src = `${forecastData.forecast.forecastday[7].day.condition.icon}`;
+
+		// console.log(
+		// 	new Date(
+		// 		forecastData.forecast.forecastday[0].hour[0].time
+		// 	).getHours()
+		// );
+		hourPlus1Time.innerHTML = ``;
 	} catch (error) {}
+};
+
+const getTestForecast = async () => {
+	try {
+		const apikey = "3df118afb0098e7f7c49145c27c3f311";
+
+		const location = await fetch(
+			`http://api.openweathermap.org/geo/1.0/direct?q=London&appid=${apikey}`
+		);
+		const response = await fetch(
+			`https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${latitude}&lon=${longitude}&appid=${apikey}`
+		);
+		const forecastData = await response.json();
+		const locationData = await location.json();
+		console.log(locationData);
+	} catch {}
 };
 
 getCurrentWeather();
 getForecast();
+getTestForecast();
