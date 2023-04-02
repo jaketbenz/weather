@@ -4,10 +4,13 @@
 	/* --primary-dark: #1f2937; */
 }
 body {
-    /* display: flex; */
+	/* display: flex; */
 	min-height: 100vh;
 	min-width: 100vw;
 	background-color: #81d8d0 !important;
+}
+.weather__row {
+	/* background-color: #81d8d0 !important; */
 }
 .footerContainer {
 	display: flex;

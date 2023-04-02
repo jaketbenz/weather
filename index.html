@@ -152,109 +152,24 @@
             <!-- Button Group, daily or hourly -->
             <div class="d-flex justify-content-center">
                 <div class="btn-group shadow-4-strong mb-3">
-                    <div class="btn btn-light active" type="button"
-                        data-mdb-color="dark">Daily</div>
-                    <div class="btn btn-light" type="button"
+                    <div class="daily__button btn btn-light active"
+                        type="button" data-mdb-color="dark">Daily</div>
+                    <div class="hourly__button btn btn-light" type="button"
                         data-mdb-color="dark">Hourly</div>
                 </div>
             </div>
             <!-- Daily Forecast -->
-            <div class="d-flex justify-content-center">
-                <div
-                    class="col-12 col-md-9 bg-light shadow-4-strong rounded-3 mb-3 p-3">
-                    <div
-                        class="row d-flex justify-content-center mb-2 border border-2 border-dark-subtle rounded-3 mx-2">
-                        <div class="day__plus1 col-4 mb-4"></div>
-                        <div class="col-4 text-center">
-                            <h6 class="day__plus1High m-0"></h6>
-                            <p class="day__plus1Low m-0"></p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <img src="" alt="" class="day__plus1Icon"
-                                style="height: 48px;">
-                        </div>
-                    </div>
-                    <div
-                        class="row d-flex justify-content-center mb-2 border border-2 border-dark-subtle rounded-3 mx-2">
-                        <div class="day__plus2 col-4 mb-4"></div>
-                        <div class="col-4 text-center">
-                            <h6 class="day__plus2High m-0"></h6>
-                            <p class="day__plus2Low m-0"></p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <img src="" alt="" class="day__plus2Icon"
-                                style="height: 48px;">
-                        </div>
-                    </div>
-                    <div
-                        class="row d-flex justify-content-center mb-2 border border-2 border-dark-subtle rounded-3 mx-2">
-                        <div class="day__plus3 col-4 mb-4"></div>
-                        <div class="col-4 text-center">
-                            <h6 class="day__plus3High m-0"></h6>
-                            <p class="day__plus3Low m-0"></p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <img src="" alt="" class="day__plus3Icon"
-                                style="height: 48px;">
-                        </div>
-                    </div>
-                    <div
-                        class="row d-flex justify-content-center mb-2 border border-2 border-dark-subtle rounded-3 mx-2">
-                        <div class="day__plus4 col-4 mb-4"></div>
-                        <div class="col-4 text-center">
-                            <h6 class="day__plus4High m-0"></h6>
-                            <p class="day__plus4Low m-0"></p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <img src="" alt="" class="day__plus4Icon"
-                                style="height: 48px;">
-                        </div>
-                    </div>
-                    <div
-                        class="row d-flex justify-content-center mb-2 border border-2 border-dark-subtle rounded-3 mx-2">
-                        <div class="day__plus5 col-4 mb-4"></div>
-                        <div class="col-4 text-center">
-                            <h6 class="day__plus5High m-0"></h6>
-                            <p class="day__plus5Low m-0"></p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <img src="" alt="" class="day__plus5Icon"
-                                style="height: 48px;">
-                        </div>
-                    </div>
-                    <div
-                        class="row d-flex justify-content-center mb-2 border border-2 border-dark-subtle rounded-3 mx-2">
-                        <div class="day__plus6 col-4 mb-4"></div>
-                        <div class="col-4 text-center">
-                            <h6 class="day__plus6High m-0"></h6>
-                            <p class="day__plus6Low m-0"></p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <img src="" alt="" class="day__plus6Icon"
-                                style="height: 48px;">
-                        </div>
-                    </div>
-                    <div
-                        class="row d-flex justify-content-center mb-2 border border-2 border-dark-subtle rounded-3 mx-2">
-                        <div class="day__plus7 col-4 mb-4"></div>
-                        <div class="col-4 text-center">
-                            <h6 class="day__plus7High m-0"></h6>
-                            <p class="day__plus7Low m-0"></p>
-                        </div>
-                        <div class="col-4 text-end">
-                            <img src="" alt="" class="day__plus7Icon"
-                                style="height: 48px;">
-                        </div>
-                    </div>
+            <div class="daily__forecastContainer d-flex justify-content-center">
+                <div class="daily__forecast col-12 col-md-9 rounded-3 mb-3 p-3">
                 </div>
             </div>
             <!-- Hourly Forecast -->
-            <div class="d-flex justify-content-center">
+            <div
+                class="hourly__forecastContainer d-flex justify-content-center d-none">
                 <div
-                    class="col-12 col-md-9 bg-dark shadow-4-strong rounded-3 mb-3">
-                    <div class="carousel slide carousel-dark"
-                        id="carouselIndicators" data-mdb-ride="carousel"
-                        data-mdb-interval="500000">
+                    class="col-12 col-md-9 bg-secondary bg-opacity-50 shadow-4-strong rounded-3 mb-3">
+                    <div class="carousel slide" id="carouselIndicators"
+                        data-mdb-ride="carousel" data-mdb-interval="500000">
                         <div class="carousel-indicators m-0">
                             <button type="button" class="active"
                                 data-mdb-target="#carouselIndicators"
@@ -270,204 +185,9 @@
                                 aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner px-5 py-3">
-                            <div class="carousel__1 carousel-item active">
-                                <!-- <div
-                                    class="hour__plus1 d-flex justify-content-between align-items-center">
-                                    <div class="hour__plus1Time"></div>
-                                    <h6 class="hour__plus1Temp m-0"></h6>
-                                    <div class="hour__plus1Conditions">
-                                    </div>
-                                    <img src="" alt="" class="hour__plus1Icon">
-                                </div>
-                                <div class="hour__plus2">
-                                    <div class="hour__plus2Time"></div>
-                                    <div class="hour__plus2Conditions">
-                                        <h6 class="hour__plus2Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus2Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus3">
-                                    <div class="hour__plus3Time"></div>
-                                    <div class="hour__plus3Conditions">
-                                        <h6 class="hour__plus3Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus3Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus4">
-                                    <div class="hour__plus4Time"></div>
-                                    <div class="hour__plus4Conditions">
-                                        <h6 class="hour__plus4Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus4Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus5">
-                                    <div class="hour__plus5Time"></div>
-                                    <div class="hour__plus5Conditions">
-                                        <h6 class="hour__plus5Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus5Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus6">
-                                    <div class="hour__plus6Time"></div>
-                                    <div class="hour__plus6Conditions">
-                                        <h6 class="hour__plus6Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus6Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus7">
-                                    <div class="hour__plus7Time"></div>
-                                    <div class="hour__plus7Conditions">
-                                        <h6 class="hour__plus7Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus7Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus8">
-                                    <div class="hour__plus8Time"></div>
-                                    <div class="hour__plus8Conditions">
-                                        <h6 class="hour__plus8Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus8Icon">
-                                    </div>
-                                </div> -->
-                            </div>
-                            <div class="carousel__2 carousel-item">
-                                <!-- <div class="hour__plus9">
-                                    <div class="hour__plus9Time"></div>
-                                    <div class="hour__plus9Conditions">
-                                        <h6 class="hour__plus9Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus9Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus10">
-                                    <div class="hour__plus10Time"></div>
-                                    <div class="hour__plus10Conditions">
-                                        <h6 class="hour__plus10Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus10Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus11">
-                                    <div class="hour__plus11Time"></div>
-                                    <div class="hour__plus11Conditions">
-                                        <h6 class="hour__plus11Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus11Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus12">
-                                    <div class="hour__plus12Time"></div>
-                                    <div class="hour__plus12Conditions">
-                                        <h6 class="hour__plus12Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus12Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus13">
-                                    <div class="hour__plus13Time"></div>
-                                    <div class="hour__plus13Conditions">
-                                        <h6 class="hour__plus13Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus13Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus14">
-                                    <div class="hour__plus14Time"></div>
-                                    <div class="hour__plus14Conditions">
-                                        <h6 class="hour__plus14Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus14Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus15">
-                                    <div class="hour__plus15Time"></div>
-                                    <div class="hour__plus15Conditions">
-                                        <h6 class="hour__plus15Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus15Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus16">
-                                    <div class="hour__plus16Time"></div>
-                                    <div class="hour__plus16Conditions">
-                                        <h6 class="hour__plus16Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus16Icon">
-                                    </div>
-                                </div> -->
-                            </div>
-                            <div class="carousel__3 carousel-item">
-                                <!-- <div class="hour__plus17">
-                                    <div class="hour__plus17Time"></div>
-                                    <div class="hour__plus17Conditions">
-                                        <h6 class="hour__plus17Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus17Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus18">
-                                    <div class="hour__plus18Time"></div>
-                                    <div class="hour__plus18Conditions">
-                                        <h6 class="hour__plus18Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus18Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus19">
-                                    <div class="hour__plus19Time"></div>
-                                    <div class="hour__plus19Conditions">
-                                        <h6 class="hour__plus19Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus19Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus20">
-                                    <div class="hour__plus20Time"></div>
-                                    <div class="hour__plus20Conditions">
-                                        <h6 class="hour__plus20Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus20Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus21">
-                                    <div class="hour__plus21Time"></div>
-                                    <div class="hour__plus21Conditions">
-                                        <h6 class="hour__plus21Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus21Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus22">
-                                    <div class="hour__plus22Time"></div>
-                                    <div class="hour__plus22Conditions">
-                                        <h6 class="hour__plus22Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus22Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus23">
-                                    <div class="hour__plus23Time"></div>
-                                    <div class="hour__plus23Conditions">
-                                        <h6 class="hour__plus23Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus23Icon">
-                                    </div>
-                                </div>
-                                <div class="hour__plus24">
-                                    <div class="hour__plus24Time"></div>
-                                    <div class="hour__plus24Conditions">
-                                        <h6 class="hour__plus24Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus24Icon">
-                                    </div>
-                                </div> -->
-                            </div>
+                            <div class="carousel__1 carousel-item active"></div>
+                            <div class="carousel__2 carousel-item"></div>
+                            <div class="carousel__3 carousel-item"></div>
                             <button class="carousel-control-prev" type="button"
                                 data-mdb-target="#carouselIndicators"
                                 data-mdb-slide="prev">
