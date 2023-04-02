@@ -76,12 +76,6 @@ const dayPlus7High = document.querySelector(".day__plus7High");
 const dayPlus7Low = document.querySelector(".day__plus7Low");
 const dayPlus7Icon = document.querySelector(".day__plus7Icon");
 
-const hourPlus1 = document.querySelector(".hour__plus1");
-const hourPlus1Time = document.querySelector(".hour__plus1Time");
-const hourPlus1Conditions = document.querySelector(".hour__plus1Conditions");
-const hourPlus1Temp = document.querySelector(".hour__plus1Temp");
-const hourPlus1Icon = document.querySelector(".hour__plus1Icon");
-
 const getForecast = async () => {
 	try {
 		const response = await fetch(
@@ -159,28 +153,155 @@ const getForecast = async () => {
 		dayPlus7Low.innerHTML = `${forecastData.forecast.forecastday[7].day.mintemp_f} °F`;
 		dayPlus7Icon.src = `${forecastData.forecast.forecastday[7].day.condition.icon}`;
 
-		// console.log(
-		// 	new Date(
-		// 		forecastData.forecast.forecastday[0].hour[0].time
-		// 	).getHours()
-		// );
 		hourPlus1Time.innerHTML = ``;
 	} catch (error) {}
 };
+function getCity() {
+	const input = document.querySelector(".form-control");
+	const cityName = input.value;
 
-const getTestForecast = async () => {
+	return cityName;
+}
+
+const hourPlus1 = document.querySelector(".hour__plus1");
+const hourPlus1Time = document.querySelector(".hour__plus1Time");
+const hourPlus1Conditions = document.querySelector(".hour__plus1Conditions");
+const hourPlus1Temp = document.querySelector(".hour__plus1Temp");
+const hourPlus1Icon = document.querySelector(".hour__plus1Icon");
+
+const getTestForecast = async (cityName) => {
 	try {
 		const apikey = "3df118afb0098e7f7c49145c27c3f311";
 
 		const location = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=London&appid=${apikey}`
+			`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apikey}`
 		);
-		const response = await fetch(
-			`https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${latitude}&lon=${longitude}&appid=${apikey}`
-		);
-		const forecastData = await response.json();
 		const locationData = await location.json();
 		console.log(locationData);
+		const latitude = locationData[0].lat;
+		const longitude = locationData[0].lon;
+		const weatherData = await fetch(
+			`https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=imperial&cnt=24`
+		);
+		const forecastData = await weatherData.json();
+		console.log(forecastData);
+		const time = forecastData.list;
+		console.log(time);
+
+		for (let i = 0; i < 8; i++) {
+			const time = new Date(forecastData.list[i].dt * 1000);
+			console.log(
+				time.toLocaleTimeString(navigator.language, {
+					hour: "2-digit",
+					minute: "2-digit",
+				})
+			);
+
+			const carousel1 = document.querySelector(".carousel__1");
+			const hourPlusX = document.createElement("div");
+			hourPlusX.className = `hour__plus${
+				i + 1
+			} d-flex justify-content-between align-items-center`;
+
+			const hourPlusXTime = document.createElement("div");
+			hourPlusXTime.className = `hour__plus${i + 1}Time`;
+			hourPlusXTime.innerHTML = `${time.toLocaleTimeString(
+				navigator.language,
+				{
+					hour: "2-digit",
+					minute: "2-digit",
+				}
+			)}`;
+
+			const hourPlusXTemp = document.createElement("h6");
+			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
+			hourPlusXTemp.innerHTML = `${forecastData.list[i].main.temp_max} °F`;
+
+			const hourPlusXIcon = document.createElement("img");
+			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
+			hourPlusXIcon.src = `https://openweathermap.org/img/wn/${forecastData.list[i].weather[0].icon}.png`;
+
+			hourPlusX.appendChild(hourPlusXTime);
+			hourPlusX.appendChild(hourPlusXTemp);
+			hourPlusX.appendChild(hourPlusXIcon);
+			carousel1.appendChild(hourPlusX);
+		}
+		for (let i = 8; i < 16; i++) {
+			const time = new Date(forecastData.list[i].dt * 1000);
+			console.log(
+				time.toLocaleTimeString(navigator.language, {
+					hour: "2-digit",
+					minute: "2-digit",
+				})
+			);
+
+			const carousel1 = document.querySelector(".carousel__2");
+			const hourPlusX = document.createElement("div");
+			hourPlusX.className = `hour__plus${
+				i + 1
+			} d-flex justify-content-between align-items-center`;
+
+			const hourPlusXTime = document.createElement("div");
+			hourPlusXTime.className = `hour__plus${i + 1}Time`;
+			hourPlusXTime.innerHTML = `${time.toLocaleTimeString(
+				navigator.language,
+				{
+					hour: "2-digit",
+					minute: "2-digit",
+				}
+			)}`;
+
+			const hourPlusXTemp = document.createElement("h6");
+			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
+			hourPlusXTemp.innerHTML = `${forecastData.list[i].main.temp_max} °F`;
+
+			const hourPlusXIcon = document.createElement("img");
+			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
+			hourPlusXIcon.src = `https://openweathermap.org/img/wn/${forecastData.list[i].weather[0].icon}.png`;
+
+			hourPlusX.appendChild(hourPlusXTime);
+			hourPlusX.appendChild(hourPlusXTemp);
+			hourPlusX.appendChild(hourPlusXIcon);
+			carousel1.appendChild(hourPlusX);
+		}
+		for (let i = 16; i < 24; i++) {
+			const time = new Date(forecastData.list[i].dt * 1000);
+			console.log(
+				time.toLocaleTimeString(navigator.language, {
+					hour: "2-digit",
+					minute: "2-digit",
+				})
+			);
+
+			const carousel1 = document.querySelector(".carousel__3");
+			const hourPlusX = document.createElement("div");
+			hourPlusX.className = `hour__plus${
+				i + 1
+			} d-flex justify-content-between align-items-center`;
+
+			const hourPlusXTime = document.createElement("div");
+			hourPlusXTime.className = `hour__plus${i + 1}Time`;
+			hourPlusXTime.innerHTML = `${time.toLocaleTimeString(
+				navigator.language,
+				{
+					hour: "2-digit",
+					minute: "2-digit",
+				}
+			)}`;
+
+			const hourPlusXTemp = document.createElement("h6");
+			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
+			hourPlusXTemp.innerHTML = `${forecastData.list[i].main.temp_max} °F`;
+
+			const hourPlusXIcon = document.createElement("img");
+			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
+			hourPlusXIcon.src = `https://openweathermap.org/img/wn/${forecastData.list[i].weather[0].icon}.png`;
+
+			hourPlusX.appendChild(hourPlusXTime);
+			hourPlusX.appendChild(hourPlusXTemp);
+			hourPlusX.appendChild(hourPlusXIcon);
+			carousel1.appendChild(hourPlusX);
+		}
 	} catch {}
 };
 

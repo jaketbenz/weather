@@ -89,6 +89,7 @@
     <!-- Main -->
     <main>
         <div class="container">
+            <!-- current weather -->
             <div class="row d-flex justify-content-center">
                 <div
                     class="weather__left d-flex flex-column justify-content-center align-items-start col-5 col-md-4 bg-light shadow-4-strong rounded-3 m-3 p-3">
@@ -135,6 +136,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Search form -->
             <div class="d-flex justify-content-center">
                 <div class="d-flex justify-content-center col-9">
                     <div
@@ -147,6 +149,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Button Group, daily or hourly -->
             <div class="d-flex justify-content-center">
                 <div class="btn-group shadow-4-strong mb-3">
                     <div class="btn btn-light active" type="button"
@@ -155,7 +158,8 @@
                         data-mdb-color="dark">Hourly</div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center d-none">
+            <!-- Daily Forecast -->
+            <div class="d-flex justify-content-center">
                 <div
                     class="col-12 col-md-9 bg-light shadow-4-strong rounded-3 mb-3 p-3">
                     <div
@@ -244,11 +248,13 @@
                     </div>
                 </div>
             </div>
+            <!-- Hourly Forecast -->
             <div class="d-flex justify-content-center">
                 <div
-                    class="col-12 col-md-9 bg-light shadow-4-strong rounded-3 mb-3">
+                    class="col-12 col-md-9 bg-dark shadow-4-strong rounded-3 mb-3">
                     <div class="carousel slide carousel-dark"
-                        id="carouselIndicators" data-mdb-ride="carousel">
+                        id="carouselIndicators" data-mdb-ride="carousel"
+                        data-mdb-interval="500000">
                         <div class="carousel-indicators m-0">
                             <button type="button" class="active"
                                 data-mdb-target="#carouselIndicators"
@@ -263,15 +269,15 @@
                                 data-mdb-slide-to="2"
                                 aria-label="Slide 3"></button>
                         </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="hour__plus1">
+                        <div class="carousel-inner px-5 py-3">
+                            <div class="carousel__1 carousel-item active">
+                                <!-- <div
+                                    class="hour__plus1 d-flex justify-content-between align-items-center">
                                     <div class="hour__plus1Time"></div>
+                                    <h6 class="hour__plus1Temp m-0"></h6>
                                     <div class="hour__plus1Conditions">
-                                        <h6 class="hour__plus1Temp"></h6>
-                                        <img src="" alt=""
-                                            class="hour__plus1Icon">
                                     </div>
+                                    <img src="" alt="" class="hour__plus1Icon">
                                 </div>
                                 <div class="hour__plus2">
                                     <div class="hour__plus2Time"></div>
@@ -328,10 +334,10 @@
                                         <img src="" alt=""
                                             class="hour__plus8Icon">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
-                            <div class="carousel-item">
-                                <div class="hour__plus9">
+                            <div class="carousel__2 carousel-item">
+                                <!-- <div class="hour__plus9">
                                     <div class="hour__plus9Time"></div>
                                     <div class="hour__plus9Conditions">
                                         <h6 class="hour__plus9Temp"></h6>
@@ -394,10 +400,10 @@
                                         <img src="" alt=""
                                             class="hour__plus16Icon">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
-                            <div class="carousel-item">
-                                <div class="hour__plus17">
+                            <div class="carousel__3 carousel-item">
+                                <!-- <div class="hour__plus17">
                                     <div class="hour__plus17Time"></div>
                                     <div class="hour__plus17Conditions">
                                         <h6 class="hour__plus17Temp"></h6>
@@ -460,7 +466,7 @@
                                         <img src="" alt=""
                                             class="hour__plus24Icon">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <button class="carousel-control-prev" type="button"
                                 data-mdb-target="#carouselIndicators"
@@ -480,18 +486,13 @@
                     </div>
                 </div>
             </div>
+            <!-- Hourly Forecast -->
         </div>
     </main>
     <!-- Main -->
     <!-- Footer -->
     <footer
         class="d-flex justify-content-center text-center text-lg-start bg-light text-muted p-2">
-        <!-- <a class="text-reset fw-bold" href="https://jakebenz.dev">Jake Benz</a>
-        |
-        <a class="text-reset fw-bold"
-            href="https://github.com/jaketbenz/weather">
-            Github
-        </a> -->
         <a class="text-reset fw-bold"
             href="https://github.com/jaketbenz/weather">
             Made by Jake
