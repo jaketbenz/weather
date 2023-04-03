@@ -1,28 +1,59 @@
 const key = "6e6947115bf44d5f83a133629232803";
 // console.log(`http://api.weatherapi.com/v1/current.json?key=${key}&q=london`);
 
+function getCity() {
+	const input = document.querySelector(".form-control");
+	const cityName = input.value;
+
+	return cityName;
+	// console.log(input.value);
+}
+
 const weatherConditions = document.querySelector(".weather__conditions");
 const locationCity = document.querySelector(".location__city");
 const locationDate = document.querySelector(".location__date");
 const locationTemperature = document.querySelector(".location__temperature");
 const locationIcon = document.querySelector(".location__image");
+const weatherSunrise = document.querySelector(".weather__sunriseTime");
+const weatherSunset = document.querySelector(".weather__sunsetTime");
 const weatherFeel = document.querySelector(".weather__feelsTemperature");
 const weatherHumidity = document.querySelector(".weather__humidityPercentage");
 const weatherChance = document.querySelector(".weather__rainChance");
 const weatherWind = document.querySelector(".weather__windSpeed");
 
-const getCurrentWeather = async () => {
+const getCurrentWeather = async (initialLoad = false) => {
 	try {
+		let cityName = "Chicago";
+		// if (initialLoad) {
+		// 	cityName = "Chicago";
+		// } else {
+		// 	cityName = getCity();
+		// }
+		// cityName = getCity();
+
+		const apikey = "3df118afb0098e7f7c49145c27c3f311";
+		// const response = await fetch(
+		// 	`http://api.weatherapi.com/v1/current.json?key=${key}&q=Chicago`
+		// );
+		console.log(cityName);
+		const location = await fetch(
+			`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
+		);
+		const locationData = await location.json();
+		// console.log(locationData);
+		const latitude = locationData[0].lat;
+		const longitude = locationData[0].lon;
 		const response = await fetch(
-			`http://api.weatherapi.com/v1/current.json?key=${key}&q=Chicago`
+			`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=imperial`
 		);
 		const weatherData = await response.json();
+		// console.log(weatherData);
 
-		weatherConditions.innerHTML = weatherData.current.condition.text;
-		locationCity.innerHTML = weatherData.location.name;
+		weatherConditions.innerHTML = weatherData.weather[0].description;
+		locationCity.innerHTML = locationData[0].name;
 
 		const options = { weekday: "long" };
-		const date = new Date(weatherData.location.localtime);
+		const date = new Date(weatherData.dt * 1000);
 		const timeOfDay = date.toLocaleTimeString("en-US");
 		const dayOfTheWeek = new Intl.DateTimeFormat("en-US", options).format(
 			date
@@ -30,22 +61,24 @@ const getCurrentWeather = async () => {
 		const dayOfTheMonth = new Intl.DateTimeFormat("en-US").format(date);
 
 		locationDate.innerHTML = `${timeOfDay} ${dayOfTheWeek}, ${dayOfTheMonth}`;
-		locationTemperature.innerHTML = `${weatherData.current.temp_f} °F`;
-		locationIcon.src = `${weatherData.current.condition.icon}`;
+		locationTemperature.innerHTML = `${Math.round(
+			weatherData.main.temp
+		)} °F`;
+		locationIcon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`;
 
-		weatherFeel.innerHTML = `${weatherData.current.feelslike_f} °F`;
-		weatherHumidity.innerHTML = `${weatherData.current.humidity}%`;
+		weatherSunrise.innerHTML = `${new Date(
+			weatherData.sys.sunrise * 1000
+		).toLocaleTimeString("en-US")}`;
+		weatherSunset.innerHTML = `${new Date(
+			weatherData.sys.sunset * 1000
+		).toLocaleTimeString("en-US")}`;
 
-		weatherWind.innerHTML = `${weatherData.current.wind_mph} mph ${weatherData.current.wind_dir}`;
+		weatherFeel.innerHTML = `${Math.round(weatherData.main.feels_like)} °F`;
+		weatherHumidity.innerHTML = `${weatherData.main.humidity}%`;
+		weatherWind.innerHTML = `${Math.round(weatherData.wind.speed)} mph`;
 	} catch (error) {}
 };
 
-function getCity() {
-	const input = document.querySelector(".form-control");
-	const cityName = input.value;
-
-	return cityName;
-}
 const dailyForecastContainer = document.querySelector(
 	".daily__forecastContainer"
 );
@@ -80,27 +113,27 @@ const getTestDailyForecast = async (cityName) => {
 			`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apikey}`
 		);
 		const locationData = await location.json();
-		console.log(locationData);
+		// console.log(locationData);
 		const latitude = locationData[0].lat;
 		const longitude = locationData[0].lon;
 		const weatherData = await fetch(
 			`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=8&appid=${apikey}&units=imperial`
 		);
 		const forecastData = await weatherData.json();
-		console.log(forecastData);
+		// console.log(forecastData);
 
 		const options = { weekday: "long", timeZone: "Etc/GMT" };
 
 		const time = new Intl.DateTimeFormat("en-US", options).format(
 			new Date(forecastData.list[0].dt * 1000)
 		);
-		console.log(time);
+		// console.log(time);
 
 		const dailyForecast = document.querySelector(".daily__forecast");
 		for (i = 0; i < 8; i++) {
 			const row = document.createElement("div");
 			row.className =
-				"weather__row d-flex justify-content-evenly bg-dark bg-opacity-50 shadow-4-strong mb-2 border border-2 border-dark-subtle rounded-3 ";
+				"weather__row d-flex justify-content-evenly bg-light bg-opacity-50 shadow-4-strong rounded-3 mb-2 pt-2";
 
 			const dayPlusX = document.createElement("div");
 			dayPlusX.className = `day__plus${i + 1} col-4 mb-4`;
@@ -153,16 +186,16 @@ const getTestHourlyForecast = async (cityName) => {
 			`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apikey}`
 		);
 		const locationData = await location.json();
-		console.log(locationData);
+		// console.log(locationData);
 		const latitude = locationData[0].lat;
 		const longitude = locationData[0].lon;
 		const weatherData = await fetch(
 			`https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=imperial&cnt=24`
 		);
 		const forecastData = await weatherData.json();
-		console.log(forecastData);
+		// console.log(forecastData);
 		const time = forecastData.list;
-		console.log(time);
+		// console.log(time);
 
 		// first carousel data
 		for (let i = 0; i < 8; i++) {

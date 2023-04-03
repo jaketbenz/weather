@@ -7,7 +7,10 @@ body {
 	/* display: flex; */
 	min-height: 100vh;
 	min-width: 100vw;
-	background-color: #81d8d0 !important;
+	/* background-color: #81d8d0 !important; */
+	background-color: lightskyblue !important;
+	/* background-image: url("./img/weather_background.jpg"); */
+	/* background-size: cover; */
 }
 .weather__row {
 	/* background-color: #81d8d0 !important; */
