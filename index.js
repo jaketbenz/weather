@@ -1,36 +1,65 @@
-const key = "6e6947115bf44d5f83a133629232803";
-// console.log(`http://api.weatherapi.com/v1/current.json?key=${key}&q=london`);
+let cityName = "Chicago";
+let units = "imperial";
 
-function getCity() {
-	const input = document.querySelector(".form-control");
-	const cityName = input.value;
+const fahrenheitButton = document.querySelector(".fahrenheit__button");
+const celsiusButton = document.querySelector(".celsius__button");
+fahrenheitButton.addEventListener("click", () => {
+	if (celsiusButton.classList.contains("active")) {
+		fahrenheitButton.classList.add("active");
+		celsiusButton.classList.remove("active");
+		units = "imperial";
+		getCurrentWeather(cityName, units);
+		getDailyForecast(cityName, units);
+		getHourlyForecast(cityName, units);
+	}
+});
+celsiusButton.addEventListener("click", () => {
+	if (fahrenheitButton.classList.contains("active")) {
+		celsiusButton.classList.add("active");
+		fahrenheitButton.classList.remove("active");
+		units = "metric";
+		getCurrentWeather(cityName, units);
+		getDailyForecast(cityName, units);
+		getHourlyForecast(cityName, units);
+	}
+});
 
-	return cityName;
-	// console.log(input.value);
-}
+const searchInput = document.querySelector(".form-control");
+searchInput.addEventListener("submit", (e) => {
+	e.preventDefault();
+});
 
-const weatherConditions = document.querySelector(".weather__conditions");
-const locationCity = document.querySelector(".location__city");
-const locationDate = document.querySelector(".location__date");
-const locationTemperature = document.querySelector(".location__temperature");
-const locationIcon = document.querySelector(".location__image");
-const weatherSunrise = document.querySelector(".weather__sunriseTime");
-const weatherSunset = document.querySelector(".weather__sunsetTime");
-const weatherFeel = document.querySelector(".weather__feelsTemperature");
-const weatherHumidity = document.querySelector(".weather__humidityPercentage");
-const weatherChance = document.querySelector(".weather__rainChance");
-const weatherWind = document.querySelector(".weather__windSpeed");
+const searchButton = document.querySelector(".search__button");
+searchButton.addEventListener("click", async () => {
+	if (searchInput.value === "") {
+		return "Chicago";
+	}
+	const currentWeatherData = await getCurrentWeather(
+		searchInput.value,
+		units
+	);
+	const hourlyWeatherData = await getHourlyForecast(searchInput.value, units);
+	const dailyWeatherData = await getDailyForecast(searchInput.value, units);
+});
 
-const getCurrentWeather = async (initialLoad = false) => {
+const getCurrentWeather = async (cityName, units) => {
+	const weatherConditions = document.querySelector(".weather__conditions");
+	const locationCity = document.querySelector(".location__city");
+	const locationDate = document.querySelector(".location__date");
+	const locationTemperature = document.querySelector(
+		".location__temperature"
+	);
+	const locationIcon = document.querySelector(".location__image");
+	const weatherSunrise = document.querySelector(".weather__sunriseTime");
+	const weatherSunset = document.querySelector(".weather__sunsetTime");
+	const weatherFeel = document.querySelector(".weather__feelsTemperature");
+	const weatherHumidity = document.querySelector(
+		".weather__humidityPercentage"
+	);
+	const weatherChance = document.querySelector(".weather__rainChance");
+	const weatherWind = document.querySelector(".weather__windSpeed");
+
 	try {
-		let cityName = "Chicago";
-		// if (initialLoad) {
-		// 	cityName = "Chicago";
-		// } else {
-		// 	cityName = getCity();
-		// }
-		// cityName = getCity();
-
 		const apikey = "3df118afb0098e7f7c49145c27c3f311";
 		// const response = await fetch(
 		// 	`http://api.weatherapi.com/v1/current.json?key=${key}&q=Chicago`
@@ -44,23 +73,23 @@ const getCurrentWeather = async (initialLoad = false) => {
 		const latitude = locationData[0].lat;
 		const longitude = locationData[0].lon;
 		const response = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=imperial`
+			`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=${units}`
 		);
 		const weatherData = await response.json();
-		// console.log(weatherData);
+		console.log(weatherData);
 
 		weatherConditions.innerHTML = weatherData.weather[0].description;
 		locationCity.innerHTML = locationData[0].name;
 
 		const options = { weekday: "long" };
 		const date = new Date(weatherData.dt * 1000);
-		const timeOfDay = date.toLocaleTimeString("en-US");
+		const timeOfDay = `${date.toLocaleTimeString("en-US")}`;
 		const dayOfTheWeek = new Intl.DateTimeFormat("en-US", options).format(
 			date
 		);
 		const dayOfTheMonth = new Intl.DateTimeFormat("en-US").format(date);
 
-		locationDate.innerHTML = `${timeOfDay} ${dayOfTheWeek}, ${dayOfTheMonth}`;
+		locationDate.innerHTML = `${timeOfDay}, ${dayOfTheWeek}, ${dayOfTheMonth}`;
 		locationTemperature.innerHTML = `${Math.round(
 			weatherData.main.temp
 		)} °F`;
@@ -76,7 +105,10 @@ const getCurrentWeather = async (initialLoad = false) => {
 		weatherFeel.innerHTML = `${Math.round(weatherData.main.feels_like)} °F`;
 		weatherHumidity.innerHTML = `${weatherData.main.humidity}%`;
 		weatherWind.innerHTML = `${Math.round(weatherData.wind.speed)} mph`;
-	} catch (error) {}
+	} catch (error) {
+		alert(error);
+		return null;
+	}
 };
 
 const dailyForecastContainer = document.querySelector(
@@ -85,7 +117,6 @@ const dailyForecastContainer = document.querySelector(
 const hourlyForecastContainer = document.querySelector(
 	".hourly__forecastContainer"
 );
-
 const dailyButton = document.querySelector(".daily__button");
 const hourlyButton = document.querySelector(".hourly__button");
 
@@ -106,18 +137,18 @@ hourlyButton.addEventListener("click", () => {
 	}
 });
 
-const getTestDailyForecast = async (cityName) => {
+const getDailyForecast = async (cityName, units) => {
 	try {
 		const apikey = "3df118afb0098e7f7c49145c27c3f311";
 		const location = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apikey}`
+			`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
 		);
 		const locationData = await location.json();
 		// console.log(locationData);
 		const latitude = locationData[0].lat;
 		const longitude = locationData[0].lon;
 		const weatherData = await fetch(
-			`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=8&appid=${apikey}&units=imperial`
+			`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=8&appid=${apikey}&units=${units}`
 		);
 		const forecastData = await weatherData.json();
 		// console.log(forecastData);
@@ -178,19 +209,19 @@ const getTestDailyForecast = async (cityName) => {
 	} catch {}
 };
 
-const getTestHourlyForecast = async (cityName) => {
+const getHourlyForecast = async (cityName, units) => {
 	try {
 		const apikey = "3df118afb0098e7f7c49145c27c3f311";
 
 		const location = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apikey}`
+			`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
 		);
 		const locationData = await location.json();
 		// console.log(locationData);
 		const latitude = locationData[0].lat;
 		const longitude = locationData[0].lon;
 		const weatherData = await fetch(
-			`https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=imperial&cnt=24`
+			`https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=${units}&cnt=24`
 		);
 		const forecastData = await weatherData.json();
 		// console.log(forecastData);
@@ -204,7 +235,7 @@ const getTestHourlyForecast = async (cityName) => {
 			const hourPlusX = document.createElement("div");
 			hourPlusX.className = `hour__plus${
 				i + 1
-			} d-flex justify-content-between align-items-center`;
+			} d-flex justify-content-between justify-content-md-evenly  align-items-center`;
 
 			const time = new Date(forecastData.list[i].dt * 1000);
 			const hourPlusXTime = document.createElement("div");
@@ -239,7 +270,7 @@ const getTestHourlyForecast = async (cityName) => {
 			const hourPlusX = document.createElement("div");
 			hourPlusX.className = `hour__plus${
 				i + 1
-			} d-flex justify-content-between align-items-center`;
+			} d-flex justify-content-between justify-content-md-evenly  align-items-center`;
 
 			const time = new Date(forecastData.list[i].dt * 1000);
 			const hourPlusXTime = document.createElement("div");
@@ -274,7 +305,7 @@ const getTestHourlyForecast = async (cityName) => {
 			const hourPlusX = document.createElement("div");
 			hourPlusX.className = `hour__plus${
 				i + 1
-			} d-flex justify-content-between align-items-center`;
+			} d-flex justify-content-between justify-content-md-evenly align-items-center`;
 
 			const time = new Date(forecastData.list[i].dt * 1000);
 			const hourPlusXTime = document.createElement("div");
@@ -305,7 +336,6 @@ const getTestHourlyForecast = async (cityName) => {
 	} catch {}
 };
 
-getCurrentWeather();
-// getForecast();
-getTestDailyForecast();
-getTestHourlyForecast();
+getCurrentWeather(cityName, units);
+getDailyForecast(cityName, units);
+getHourlyForecast(cityName, units);
