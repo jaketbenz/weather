@@ -3,21 +3,34 @@ let units = "imperial";
 
 const fahrenheitButton = document.querySelector(".fahrenheit__button");
 const celsiusButton = document.querySelector(".celsius__button");
-fahrenheitButton.addEventListener("click", () => {
+fahrenheitButton.addEventListener("click", (e) => {
 	if (celsiusButton.classList.contains("active")) {
 		fahrenheitButton.classList.add("active");
 		celsiusButton.classList.remove("active");
 		units = "imperial";
+		let cityName;
+		if (searchInput.value === "") {
+			cityName = "Chicago";
+		} else {
+			cityName = searchInput.value;
+		}
 		getCurrentWeather(cityName, units);
 		getDailyForecast(cityName, units);
 		getHourlyForecast(cityName, units);
 	}
 });
-celsiusButton.addEventListener("click", () => {
+celsiusButton.addEventListener("click", (e) => {
 	if (fahrenheitButton.classList.contains("active")) {
 		celsiusButton.classList.add("active");
 		fahrenheitButton.classList.remove("active");
 		units = "metric";
+		let cityName;
+		if (searchInput.value === "") {
+			cityName = "Chicago";
+		} else {
+			cityName = searchInput.value;
+		}
+
 		getCurrentWeather(cityName, units);
 		getDailyForecast(cityName, units);
 		getHourlyForecast(cityName, units);
@@ -79,7 +92,7 @@ const getCurrentWeather = async (cityName, units) => {
 		console.log(weatherData);
 
 		weatherConditions.innerHTML = weatherData.weather[0].description;
-		locationCity.innerHTML = locationData[0].name;
+		locationCity.innerHTML = weatherData.name;
 
 		const options = { weekday: "long" };
 		const date = new Date(weatherData.dt * 1000);
@@ -90,9 +103,7 @@ const getCurrentWeather = async (cityName, units) => {
 		const dayOfTheMonth = new Intl.DateTimeFormat("en-US").format(date);
 
 		locationDate.innerHTML = `${timeOfDay}, ${dayOfTheWeek}, ${dayOfTheMonth}`;
-		locationTemperature.innerHTML = `${Math.round(
-			weatherData.main.temp
-		)} °F`;
+		locationTemperature.innerHTML = `${Math.round(weatherData.main.temp)} `;
 		locationIcon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`;
 
 		weatherSunrise.innerHTML = `${new Date(
@@ -102,7 +113,7 @@ const getCurrentWeather = async (cityName, units) => {
 			weatherData.sys.sunset * 1000
 		).toLocaleTimeString("en-US")}`;
 
-		weatherFeel.innerHTML = `${Math.round(weatherData.main.feels_like)} °F`;
+		weatherFeel.innerHTML = `${Math.round(weatherData.main.feels_like)} `;
 		weatherHumidity.innerHTML = `${weatherData.main.humidity}%`;
 		weatherWind.innerHTML = `${Math.round(weatherData.wind.speed)} mph`;
 	} catch (error) {
@@ -161,6 +172,7 @@ const getDailyForecast = async (cityName, units) => {
 		// console.log(time);
 
 		const dailyForecast = document.querySelector(".daily__forecast");
+		dailyForecast.innerHTML = "";
 		for (i = 0; i < 8; i++) {
 			const row = document.createElement("div");
 			row.className =
@@ -180,13 +192,13 @@ const getDailyForecast = async (cityName, units) => {
 			dayPlusXMaxTemp.className = `day__plus${i + 1}High m-0`;
 			dayPlusXMaxTemp.innerHTML = `${Math.round(
 				forecastData.list[i].temp.max
-			)} °F`;
+			)} `;
 
 			const dayPlusXMinTemp = document.createElement("p");
 			dayPlusXMinTemp.className = `day__plus${i + 1}High m-0`;
 			dayPlusXMinTemp.innerHTML = `${Math.round(
 				forecastData.list[i].temp.min
-			)} °F`;
+			)} `;
 
 			const dayPlusXImage = document.createElement("div");
 			dayPlusXImage.className = `day__plus${i + 1}Image col-4 text-end`;
@@ -227,11 +239,15 @@ const getHourlyForecast = async (cityName, units) => {
 		// console.log(forecastData);
 		const time = forecastData.list;
 		// console.log(time);
+		const carousel1 = document.querySelector(".carousel__1");
+		const carousel2 = document.querySelector(".carousel__2");
+		const carousel3 = document.querySelector(".carousel__3");
+		carousel1.innerHTML = "";
+		carousel2.innerHTML = "";
+		carousel3.innerHTML = "";
 
 		// first carousel data
 		for (let i = 0; i < 8; i++) {
-			const carousel1 = document.querySelector(".carousel__1");
-
 			const hourPlusX = document.createElement("div");
 			hourPlusX.className = `hour__plus${
 				i + 1
@@ -252,7 +268,7 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
 			hourPlusXTemp.innerHTML = `${Math.round(
 				forecastData.list[i].main.temp_max
-			)} °F`;
+			)} `;
 
 			const hourPlusXIcon = document.createElement("img");
 			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
@@ -265,8 +281,6 @@ const getHourlyForecast = async (cityName, units) => {
 		}
 		// second carousel data
 		for (let i = 8; i < 16; i++) {
-			const carousel1 = document.querySelector(".carousel__2");
-
 			const hourPlusX = document.createElement("div");
 			hourPlusX.className = `hour__plus${
 				i + 1
@@ -287,7 +301,7 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
 			hourPlusXTemp.innerHTML = `${Math.round(
 				forecastData.list[i].main.temp_max
-			)} °F`;
+			)} `;
 
 			const hourPlusXIcon = document.createElement("img");
 			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
@@ -296,12 +310,10 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusX.appendChild(hourPlusXTime);
 			hourPlusX.appendChild(hourPlusXTemp);
 			hourPlusX.appendChild(hourPlusXIcon);
-			carousel1.appendChild(hourPlusX);
+			carousel2.appendChild(hourPlusX);
 		}
 		// third carousel data
 		for (let i = 16; i < 24; i++) {
-			const carousel1 = document.querySelector(".carousel__3");
-
 			const hourPlusX = document.createElement("div");
 			hourPlusX.className = `hour__plus${
 				i + 1
@@ -322,7 +334,7 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
 			hourPlusXTemp.innerHTML = `${Math.round(
 				forecastData.list[i].main.temp_max
-			)} °F`;
+			)} `;
 
 			const hourPlusXIcon = document.createElement("img");
 			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
@@ -331,7 +343,7 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusX.appendChild(hourPlusXTime);
 			hourPlusX.appendChild(hourPlusXTemp);
 			hourPlusX.appendChild(hourPlusXIcon);
-			carousel1.appendChild(hourPlusX);
+			carousel3.appendChild(hourPlusX);
 		}
 	} catch {}
 };
