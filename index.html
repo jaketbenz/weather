@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <!-- <script src="../dist/main.js" defer></script> -->
+
+    <!-- Bootstrap Links -->
+    <!-- <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+        </script> -->
+    <!-- Font Awesome Links -->
+    <!-- <script src="https://kit.fontawesome.com/eb1d80cf3a.js"></script> -->
+
+    <!-- Material Design Bootstrap Links -->
+    <!-- Font Awesome -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        rel="stylesheet" />
+    <!-- MDB -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+        rel="stylesheet" />
+    <!-- MDB -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+        defer></script>
+    <title>Weather</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- Toggle Button -->
+            <button class="navbar-toggler" type="button"
+                data-mdb-toggle="collapse" data-mdb-target="#navbarContent"
+                aria-controls="#navbarContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- <a href="" class="navbar-brand mt-2 mt-lg-0">
+                    <img src="./img/KiwiLogo.png" alt="Kiwi Logo" height="25"
+                        loading="lazy">
+                </a> -->
+                <!-- Left Links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">About</a>
+                    </li>
+                </ul>
+                <!-- Left Links -->
+            </div>
+            <!-- Collapsible wrapper -->
+            <!-- Right elements -->
+            <div class="">
+                <!-- Icon -->
+                <!-- <a href="" class="text-reset me-3">
+                    <i class="fab fa-github"></i>
+                </a> -->
+                <a href="" class="navbar-brand m-0">
+                    <img class="m-0" src="./img/KiwiLogo.png" alt="Kiwi Logo"
+                        height="25" loading="lazy">
+                </a>
+            </div>
+            <!-- Right elements -->
+        </div>
+    </nav>
+    <!-- Main -->
+    <main>
+        <div class="container">
+            <!-- Search form -->
+            <div
+                class="d-flex justify-content-center col-12 col-md-8 col-lg-4 mx-auto">
+                <div
+                    class="input-group d-flex justify-content-center
+                                bg-light bg-opacity-75 shadow-4-strong rounded-3 my-3">
+                    <div class="form-outline">
+                        <input type="search" class="form-control"
+                            id="locationInput">
+                        <label class="form-label" for="locationInput">Search
+                            Location</label>
+                    </div>
+                    <button class="search__button btn btn-primary"
+                        type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Select units -->
+            <div class="d-flex justify-content-center mb-3">
+                <div class="btn-group shadow-4-strong">
+                    <div class="fahrenheit__button btn btn-light active"
+                        type="button" data-mdb-color="dark">Fahrenheit</div>
+                    <div class="celsius__button btn btn-light" type="button"
+                        data-mdb-color="dark">Celsius</div>
+                </div>
+            </div>
+            <!-- Current Weather -->
+            <div class="row d-flex justify-content-center">
+                <div
+                    class="weather__left d-flex flex-column justify-content-center align-items-center col-5 col-md-4 col-lg-2 bg-light bg-opacity-50 shadow-4-strong rounded-3 mb-3 mx-3 p-3">
+                    <!-- <h6 class="weather__conditions text-capitalize fw-bolder">
+                    </h6> -->
+                    <!-- <p class="location__city"></p> -->
+                    <!-- <p class="location__date"></p> -->
+                    <h3 class="location__city"></h3>
+                    <h1 class="location__temperature"></h1>
+                    <p class="weather__conditions text-capitalize m-0"></p>
+                    <div class="location__icon mb-5">
+                        <img class="location__image" src="" alt="">
+                    </div>
+                    <h6 class="location__lastUpdated fw-bolder">Last Updated:
+                    </h6>
+                    <p class="location__date"></p>
+                </div>
+                <div
+                    class="weather__right d-flex flex-column justify-content-center align-items-start col-5 col-md-4 col-lg-2 bg-light bg-opacity-50 shadow-4-strong rounded-3 mb-3 mx-3 p-3">
+                    <div
+                        class="weather__sunrise d-flex justify-content-between align-items-center col-12">
+                        <i class="fas fa-cloud-sun fs-1"></i>
+                        <div class="text-end">
+                            <p class="m-0 fw-lighter">Sunrise</p>
+                            <h6 class="weather__sunriseTime fw-bolder"></h6>
+                        </div>
+                    </div>
+                    <div
+                        class="weather__sunset d-flex justify-content-between align-items-center col-12">
+                        <i class="fas fa-cloud-moon fs-1"></i>
+                        <div class="text-end">
+                            <p class="m-0 fw-lighter">Sunset</p>
+                            <h6 class="weather__sunsetTime fw-bolder"></h6>
+                        </div>
+                    </div>
+                    <div
+                        class="weather__feels d-flex justify-content-between align-items-center col-12">
+                        <i class="fas fa-temperature-half fs-1"></i>
+                        <div class="text-end">
+                            <p class="m-0 fw-lighter">Feels Like</p>
+                            <h6 class="weather__feelsTemperature fw-bolder">
+                            </h6>
+                        </div>
+                    </div>
+                    <div
+                        class="weather__humidity d-flex justify-content-between align-items-center col-12">
+                        <i class="fas fa-droplet fs-1"></i>
+                        <div class="text-end">
+                            <p class="m-0 fw-lighter">Humidity</p>
+                            <h6 class="weather__humidityPercentage fw-bolder">
+                            </h6>
+                        </div>
+                    </div>
+                    <!-- <div class="weather__rain d-flex align-items-center">
+                        <i class="fas fa-cloud-rain fs-1 me-2"></i>
+                        <div class="">
+                            <p class="m-0 fw-lighter">Chance of Rain</p>
+                            <h6 class="weather__rainChance fw-bolder"></h6>
+                        </div>
+                    </div> -->
+                    <div
+                        class="weather__wind d-flex justify-content-between align-items-center col-12">
+                        <i class="fas fa-wind fs-1"></i>
+                        <div class="text-end">
+                            <p class="m-0 fw-lighter">Wind Speed</p>
+                            <h6 class="weather__windSpeed fw-bolder"></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Search form
+            <div
+                class="d-flex justify-content-center col-12 col-md-8 col-lg-4 mx-auto">
+                <div class="input-group d-flex justify-content-center
+                bg-light bg-opacity-75 shadow-4-strong rounded-3 mb-3">
+                    <div class="form-outline">
+                        <input type="search" class="form-control"
+                            id="locationInput">
+                        <label class="form-label" for="locationInput">Search
+                            Location</label>
+                    </div>
+                    <button class="search__button btn btn-primary"
+                        type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div> -->
+            <!-- Button Group, daily or hourly -->
+            <div class="d-flex justify-content-center">
+                <div class="btn-group shadow-4-strong mb-3">
+                    <div class="daily__button btn btn-light active"
+                        type="button" data-mdb-color="dark">Daily</div>
+                    <div class="hourly__button btn btn-light" type="button"
+                        data-mdb-color="dark">Hourly</div>
+                </div>
+            </div>
+            <!-- Daily Forecast -->
+            <div class="daily__forecastContainer d-flex justify-content-center">
+                <div class="daily__forecast col-12 col-md-8 col-lg-4 mb-5">
+                </div>
+            </div>
+            <!-- Hourly Forecast -->
+            <div
+                class="hourly__forecastContainer d-flex justify-content-center d-none">
+                <div
+                    class="hourly__forecast col-12 col-md-9 col-lg-4 bg-light bg-opacity-50 shadow-4-strong rounded-3 mb-5">
+                    <div class="carousel slide carousel-dark"
+                        id="carouselIndicators" data-mdb-ride="carousel"
+                        data-mdb-interval="500000">
+                        <div class="carousel-indicators m-0">
+                            <button type="button" class="active"
+                                data-mdb-target="#carouselIndicators"
+                                data-mdb-slide-to="0" aria-current="true"
+                                aria-label="Slide 1"></button>
+                            <button type="button" class=""
+                                data-mdb-target="#carouselIndicators"
+                                data-mdb-slide-to="1"
+                                aria-label="Slide 2"></button>
+                            <button type="button" class=""
+                                data-mdb-target="#carouselIndicators"
+                                data-mdb-slide-to="2"
+                                aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner px-5 py-3">
+                            <div class="carousel__1 carousel-item active"></div>
+                            <div class="carousel__2 carousel-item"></div>
+                            <div class="carousel__3 carousel-item"></div>
+                            <button class="carousel-control-prev" type="button"
+                                data-mdb-target="#carouselIndicators"
+                                data-mdb-slide="prev">
+                                <span class="carousel-control-prev-icon"
+                                    aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-mdb-target="#carouselIndicators"
+                                data-mdb-slide="next">
+                                <span class="carousel-control-next-icon"
+                                    aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ToDo: Rebuild container that scrolls for hourly data -->
+        </div>
+    </main>
+    <!-- Main -->
+    <!-- Footer -->
+    <footer
+        class="d-flex justify-content-center fixed-bottom text-center text-lg-start bg-light text-muted p-2">
+        <a class="text-reset fw-bold"
+            href="https://github.com/jaketbenz/weather">
+            Made by Jake
+        </a>
+    </footer>
+    <!-- Footer -->
+    <script src="main.js"></script>
+    <!-- <script src="index.js"></script> -->
+</body>
+
+</html>
