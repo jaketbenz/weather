@@ -1,9 +1,11 @@
+import "./index.css";
+
 let cityName = "Chicago";
 let units = "imperial";
 
 const fahrenheitButton = document.querySelector(".fahrenheit__button");
 const celsiusButton = document.querySelector(".celsius__button");
-fahrenheitButton.addEventListener("click", (e) => {
+fahrenheitButton.addEventListener("click", () => {
 	if (celsiusButton.classList.contains("active")) {
 		fahrenheitButton.classList.add("active");
 		celsiusButton.classList.remove("active");
@@ -19,7 +21,7 @@ fahrenheitButton.addEventListener("click", (e) => {
 		getHourlyForecast(cityName, units);
 	}
 });
-celsiusButton.addEventListener("click", (e) => {
+celsiusButton.addEventListener("click", () => {
 	if (fahrenheitButton.classList.contains("active")) {
 		celsiusButton.classList.add("active");
 		fahrenheitButton.classList.remove("active");
@@ -47,12 +49,12 @@ searchButton.addEventListener("click", async () => {
 	if (searchInput.value === "") {
 		return "Chicago";
 	}
-	const currentWeatherData = await getCurrentWeather(
-		searchInput.value,
-		units
-	);
-	const hourlyWeatherData = await getHourlyForecast(searchInput.value, units);
-	const dailyWeatherData = await getDailyForecast(searchInput.value, units);
+	// const currentWeatherData = await getCurrentWeather(
+	// 	searchInput.value,
+	// 	units
+	// );
+	// const hourlyWeatherData = await getHourlyForecast(searchInput.value, units);
+	// const dailyWeatherData = await getDailyForecast(searchInput.value, units);
 });
 
 const getCurrentWeather = async (cityName, units) => {
@@ -69,7 +71,7 @@ const getCurrentWeather = async (cityName, units) => {
 	const weatherHumidity = document.querySelector(
 		".weather__humidityPercentage"
 	);
-	const weatherChance = document.querySelector(".weather__rainChance");
+	// const weatherChance = document.querySelector(".weather__rainChance");
 	const weatherWind = document.querySelector(".weather__windSpeed");
 
 	try {
@@ -94,26 +96,39 @@ const getCurrentWeather = async (cityName, units) => {
 		weatherConditions.innerHTML = weatherData.weather[0].description;
 		locationCity.innerHTML = weatherData.name;
 
-		const options = { weekday: "long" };
+		// const options = { weekday: "long" };
 		const date = new Date(weatherData.dt * 1000);
-		const timeOfDay = `${date.toLocaleTimeString("en-US")}`;
-		const dayOfTheWeek = new Intl.DateTimeFormat("en-US", options).format(
-			date
-		);
-		const dayOfTheMonth = new Intl.DateTimeFormat("en-US").format(date);
+		const timeOfDay = `${date
+			.toLocaleTimeString([], {
+				hour: "numeric",
+				minute: "2-digit",
+			})
+			.replace(" AM", "AM")
+			.replace(" PM", "PM")}`;
+		// const dayOfTheWeek = new Intl.DateTimeFormat("en-US", options).format(
+		// 	date
+		// );
+		// const dayOfTheMonth = new Intl.DateTimeFormat("en-US").format(date);
 
-		locationDate.innerHTML = `${timeOfDay}, ${dayOfTheWeek}, ${dayOfTheMonth}`;
-		locationTemperature.innerHTML = `${Math.round(weatherData.main.temp)} `;
+		locationDate.innerHTML = `Today at ${timeOfDay}`;
+		locationTemperature.innerHTML = `${Math.round(weatherData.main.temp)}°`;
 		locationIcon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`;
+		// locationIcon.src = "./img/Untitled 6.png";
 
 		weatherSunrise.innerHTML = `${new Date(
 			weatherData.sys.sunrise * 1000
-		).toLocaleTimeString("en-US")}`;
+		).toLocaleTimeString("en-US", {
+			hour: "numeric",
+			minute: "2-digit",
+		})}`;
 		weatherSunset.innerHTML = `${new Date(
 			weatherData.sys.sunset * 1000
-		).toLocaleTimeString("en-US")}`;
+		).toLocaleTimeString("en-US", {
+			hour: "numeric",
+			minute: "2-digit",
+		})}`;
 
-		weatherFeel.innerHTML = `${Math.round(weatherData.main.feels_like)} `;
+		weatherFeel.innerHTML = `${Math.round(weatherData.main.feels_like)}° `;
 		weatherHumidity.innerHTML = `${weatherData.main.humidity}%`;
 		weatherWind.innerHTML = `${Math.round(weatherData.wind.speed)} mph`;
 	} catch (error) {
@@ -166,14 +181,14 @@ const getDailyForecast = async (cityName, units) => {
 
 		const options = { weekday: "long", timeZone: "Etc/GMT" };
 
-		const time = new Intl.DateTimeFormat("en-US", options).format(
-			new Date(forecastData.list[0].dt * 1000)
-		);
+		// const time = new Intl.DateTimeFormat("en-US", options).format(
+		// 	new Date(forecastData.list[0].dt * 1000)
+		// );
 		// console.log(time);
 
 		const dailyForecast = document.querySelector(".daily__forecast");
 		dailyForecast.innerHTML = "";
-		for (i = 0; i < 8; i++) {
+		for (let i = 0; i < 8; i++) {
 			const row = document.createElement("div");
 			row.className =
 				"weather__row d-flex justify-content-evenly bg-light bg-opacity-50 shadow-4-strong rounded-3 mb-2 pt-2";
@@ -192,13 +207,13 @@ const getDailyForecast = async (cityName, units) => {
 			dayPlusXMaxTemp.className = `day__plus${i + 1}High m-0`;
 			dayPlusXMaxTemp.innerHTML = `${Math.round(
 				forecastData.list[i].temp.max
-			)} `;
+			)}° `;
 
 			const dayPlusXMinTemp = document.createElement("p");
 			dayPlusXMinTemp.className = `day__plus${i + 1}High m-0`;
 			dayPlusXMinTemp.innerHTML = `${Math.round(
 				forecastData.list[i].temp.min
-			)} `;
+			)}° `;
 
 			const dayPlusXImage = document.createElement("div");
 			dayPlusXImage.className = `day__plus${i + 1}Image col-4 text-end`;
@@ -218,7 +233,10 @@ const getDailyForecast = async (cityName, units) => {
 			row.appendChild(dayPlusXImage);
 			dailyForecast.appendChild(row);
 		}
-	} catch {}
+	} catch (error) {
+		alert(error);
+		return null;
+	}
 };
 
 const getHourlyForecast = async (cityName, units) => {
@@ -237,7 +255,7 @@ const getHourlyForecast = async (cityName, units) => {
 		);
 		const forecastData = await weatherData.json();
 		// console.log(forecastData);
-		const time = forecastData.list;
+		// const time = forecastData.list;
 		// console.log(time);
 		const carousel1 = document.querySelector(".carousel__1");
 		const carousel2 = document.querySelector(".carousel__2");
@@ -268,7 +286,7 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
 			hourPlusXTemp.innerHTML = `${Math.round(
 				forecastData.list[i].main.temp_max
-			)} `;
+			)}° `;
 
 			const hourPlusXIcon = document.createElement("img");
 			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
@@ -301,7 +319,7 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
 			hourPlusXTemp.innerHTML = `${Math.round(
 				forecastData.list[i].main.temp_max
-			)} `;
+			)}° `;
 
 			const hourPlusXIcon = document.createElement("img");
 			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
@@ -334,7 +352,7 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusXTemp.className = `hour__plus${i + 1}Temp m-0`;
 			hourPlusXTemp.innerHTML = `${Math.round(
 				forecastData.list[i].main.temp_max
-			)} `;
+			)}° `;
 
 			const hourPlusXIcon = document.createElement("img");
 			hourPlusXIcon.className = `hour__plus${i + 1}Icon `;
@@ -345,7 +363,10 @@ const getHourlyForecast = async (cityName, units) => {
 			hourPlusX.appendChild(hourPlusXIcon);
 			carousel3.appendChild(hourPlusX);
 		}
-	} catch {}
+	} catch (error) {
+		alert(error);
+		return null;
+	}
 };
 
 getCurrentWeather(cityName, units);

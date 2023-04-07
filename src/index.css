@@ -28,3 +28,7 @@ body {
 .footer__link {
 	color: var(--primary-light);
 }
+
+.weather__row{
+	/* background-image: url("./img/Untitled\ 8.png"); */
+}

@@ -8,7 +8,7 @@
 
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="index.css"> -->
     <!-- <script src="../dist/main.js" defer></script> -->
 
     <!-- Bootstrap Links -->
@@ -89,8 +89,26 @@
     <!-- Main -->
     <main>
         <div class="container">
-            <!-- current weather -->
-            <div class="d-flex justify-content-center mt-3">
+            <!-- Search form -->
+            <div
+                class="d-flex justify-content-center col-12 col-md-8 col-lg-4 mx-auto">
+                <div
+                    class="input-group d-flex justify-content-center
+                                bg-light bg-opacity-75 shadow-4-strong rounded-3 my-3">
+                    <div class="form-outline">
+                        <input type="search" class="form-control"
+                            id="locationInput">
+                        <label class="form-label" for="locationInput">Search
+                            Location</label>
+                    </div>
+                    <button class="search__button btn btn-primary"
+                        type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Select units -->
+            <div class="d-flex justify-content-center mb-3">
                 <div class="btn-group shadow-4-strong">
                     <div class="fahrenheit__button btn btn-light active"
                         type="button" data-mdb-color="dark">Fahrenheit</div>
@@ -98,22 +116,26 @@
                         data-mdb-color="dark">Celsius</div>
                 </div>
             </div>
+            <!-- Current Weather -->
             <div class="row d-flex justify-content-center">
                 <div
-                    class="weather__left d-flex flex-column justify-content-center align-items-start col-5 col-md-4 col-lg-2 bg-light bg-opacity-50 shadow-4-strong rounded-3 m-3 p-3">
-                    <h6 class="weather__conditions text-capitalize fw-bolder">
-                    </h6>
-                    <p class="location__city"></p>
+                    class="weather__left d-flex flex-column justify-content-center align-items-center col-5 col-md-4 col-lg-2 bg-light bg-opacity-50 shadow-4-strong rounded-3 mb-3 mx-3 p-3">
+                    <!-- <h6 class="weather__conditions text-capitalize fw-bolder">
+                    </h6> -->
+                    <!-- <p class="location__city"></p> -->
+                    <!-- <p class="location__date"></p> -->
+                    <h3 class="location__city"></h3>
+                    <h1 class="location__temperature"></h1>
+                    <p class="weather__conditions text-capitalize m-0"></p>
+                    <div class="location__icon mb-5">
+                        <img class="location__image" src="" alt="">
+                    </div>
                     <h6 class="location__lastUpdated fw-bolder">Last Updated:
                     </h6>
                     <p class="location__date"></p>
-                    <h4 class="location__temperature"></h4>
-                    <div class="location__icon">
-                        <img class="location__image" src="" alt="">
-                    </div>
                 </div>
                 <div
-                    class="weather__right d-flex flex-column justify-content-center align-items-start col-5 col-md-4 col-lg-2 bg-light bg-opacity-50 shadow-4-strong rounded-3 m-3 p-3">
+                    class="weather__right d-flex flex-column justify-content-center align-items-start col-5 col-md-4 col-lg-2 bg-light bg-opacity-50 shadow-4-strong rounded-3 mb-3 mx-3 p-3">
                     <div
                         class="weather__sunrise d-flex justify-content-between align-items-center col-12">
                         <i class="fas fa-cloud-sun fs-1"></i>
@@ -165,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Search form -->
+            <!-- Search form
             <div
                 class="d-flex justify-content-center col-12 col-md-8 col-lg-4 mx-auto">
                 <div class="input-group d-flex justify-content-center
@@ -181,7 +203,7 @@
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
-            </div>
+            </div> -->
             <!-- Button Group, daily or hourly -->
             <div class="d-flex justify-content-center">
                 <div class="btn-group shadow-4-strong mb-3">
@@ -240,7 +262,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Hourly Forecast -->
+            <!-- ToDo: Rebuild container that scrolls for hourly data -->
         </div>
     </main>
     <!-- Main -->
@@ -253,8 +275,8 @@
         </a>
     </footer>
     <!-- Footer -->
-    <!-- <script src="main.js"></script> -->
-    <script src="index.js"></script>
+    <script src="main.js"></script>
+    <!-- <script src="index.js"></script> -->
 </body>
 
 </html>
