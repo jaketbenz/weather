@@ -49,12 +49,9 @@ searchButton.addEventListener("click", async () => {
 	if (searchInput.value === "") {
 		return "Chicago";
 	}
-	// const currentWeatherData = await getCurrentWeather(
-	// 	searchInput.value,
-	// 	units
-	// );
-	// const hourlyWeatherData = await getHourlyForecast(searchInput.value, units);
-	// const dailyWeatherData = await getDailyForecast(searchInput.value, units);
+	getCurrentWeather(searchInput.value, units);
+	getHourlyForecast(searchInput.value, units);
+	getDailyForecast(searchInput.value, units);
 });
 
 const getCurrentWeather = async (cityName, units) => {
@@ -81,7 +78,7 @@ const getCurrentWeather = async (cityName, units) => {
 		// );
 		console.log(cityName);
 		const location = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
+			`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
 		);
 		const locationData = await location.json();
 		// console.log(locationData);
@@ -132,8 +129,8 @@ const getCurrentWeather = async (cityName, units) => {
 		weatherHumidity.innerHTML = `${weatherData.main.humidity}%`;
 		weatherWind.innerHTML = `${Math.round(weatherData.wind.speed)} mph`;
 	} catch (error) {
-		alert(error);
-		return null;
+		// alert(error);
+		// return null;
 	}
 };
 
@@ -167,7 +164,7 @@ const getDailyForecast = async (cityName, units) => {
 	try {
 		const apikey = "3df118afb0098e7f7c49145c27c3f311";
 		const location = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
+			`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
 		);
 		const locationData = await location.json();
 		// console.log(locationData);
@@ -234,8 +231,8 @@ const getDailyForecast = async (cityName, units) => {
 			dailyForecast.appendChild(row);
 		}
 	} catch (error) {
-		alert(error);
-		return null;
+		// alert(error);
+		// return null;
 	}
 };
 
@@ -244,7 +241,7 @@ const getHourlyForecast = async (cityName, units) => {
 		const apikey = "3df118afb0098e7f7c49145c27c3f311";
 
 		const location = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
+			`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apikey}`
 		);
 		const locationData = await location.json();
 		// console.log(locationData);
@@ -364,8 +361,8 @@ const getHourlyForecast = async (cityName, units) => {
 			carousel3.appendChild(hourPlusX);
 		}
 	} catch (error) {
-		alert(error);
-		return null;
+		// alert(error);
+		// return null;
 	}
 };
 
